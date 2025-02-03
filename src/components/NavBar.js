@@ -19,7 +19,6 @@ const NavBar = ()=> {
   <Navbar.Collapse id="basic-navbar-nav">
     <Nav className="ml-auto" style={{marginRight:10, marginTop: 8, marginBottom: 8}}>
       <Nav.Link href={process.env.PUBLIC_URL+'/'}style={{marginRight:10}}>Home </Nav.Link>
-      <Nav.Link href="http://github.com/druv5319/Sneaks-API">About</Nav.Link>
     </Nav>
   </Navbar.Collapse>
 
