@@ -101,7 +101,8 @@ const MiniCard = (props) => {
 
     return(
       <a onClick={showCard} style={{ cursor: 'pointer' }} class='card-button'>
-        <Card class='mini-card' border="light" tag="a" style={{ cursor: "pointer", width: '15rem', height: '17rem' }}>
+        <Card class='mini-card' border="light" tag="a" style={{ cursor: "pointer", width: '15rem', height: '17rem' }}
+          style={{ width: '15rem', height: '17rem' }}>
           <Card.Img class={imageClass} variant="top" src={sneakerImage} />
           <Card.Body class='mini-card-body'>
             <Card.Title class='card-title'>{sneaker.shoeName}</Card.Title>
