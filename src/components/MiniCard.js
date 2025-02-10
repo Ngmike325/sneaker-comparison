@@ -17,18 +17,6 @@ const MiniCard = (props) => {
   const [newSneaker, setNewSneaker] = useState({});
   const [fetchSneaker, triggerFetchSneaker] = useState(false);
   var sneaker = props.sneaker;
-  // useEffect(() => {
-  //   if (fetchSneaker) {
-  //     fetch("https://sneaks-api.azurewebsites.net/id/" + sneaker.styleID + '/prices', {
-  //         headers: myHeaders,
-  //       })
-  //       .then(response => response.json())
-  //       .then(jsonResponse => {
-  //         setNewSneaker(jsonResponse);
-
-  //       });
-  //   }
-  // }, [fetchSneaker]);
 
 
   useEffect(() => {
@@ -43,7 +31,6 @@ const MiniCard = (props) => {
         });
     }
   }, [fetchSneaker]);
-
 
 
   const showCard = () => {
