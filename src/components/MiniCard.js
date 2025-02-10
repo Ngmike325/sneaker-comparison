@@ -21,16 +21,16 @@ const MiniCard = (props) => {
 
   useEffect(() => {
     if (fetchSneaker) {
-      fetch("http://localhost:5000/api/search-sneakers?q=" + sneaker.styleID + '/prices', {
+      fetch("http://localhost:5000/api/product-prices/" + sneaker.styleID, {
           headers: myHeaders,
         })
         .then(response => response.json())
         .then(jsonResponse => {
           setNewSneaker(jsonResponse);
-
         });
     }
   }, [fetchSneaker]);
+
 
 
   const showCard = () => {
