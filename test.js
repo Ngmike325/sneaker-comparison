@@ -1,43 +1,27 @@
-const got = require('got');
+const puppeteer = require('puppeteer');
 
-const getPrices = async function (shoe, callback) {
-    let priceMap = {};
-    try {
-        const response = await got('https://stockx.com/api/products/' + shoe.urlKey + '?includes=market', {
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.4 Safari/605.1.15'
-            },
-            http2: true
-        });
-        let json = JSON.parse(response.body);
-        Object.keys(json.Product.children).forEach(function (key) {
-            if (json.Product.children[key].market.lowestAsk == 0) return;
-            var size = json.Product.children[key].shoeSize;
-            if (size[size.length-1] == 'W') {
-                size = size.substring(0, size.length - 1);
-            }
-            priceMap[size] = json.Product.children[key].market.lowestAsk;
-        });
-        shoe.resellPrices = { stockX: priceMap };
-        callback(null, shoe);
-    } catch (error) {
-        console.log(error);
-        let err = new Error(`Could not connect to StockX while searching '${shoe.styleID}'. Error: ${error.message}`);
-        console.log(err);
-        callback(err);
-    }
-};
+puppeteer.launch({ headless: false }).then(async browser => {
+    const page = await browser.newPage();
+    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36');
+    await page.goto('https://www.goat.com/sneakers/air-jordan-1-retro-high-85-og-bred-2025-hv6675-067', {
+        waitUntil: 'networkidle2',
+        headers: {
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Connection': 'keep-alive'
+        }
+    });
 
-const shoe = {
-    urlKey: 'nike-kobe-9-elite-protro-masterpiece',
-    styleID: 'FZ7335-001',
-    resellPrices: {}
-};
+    // Wait for the page content to load
+    await page.waitForSelector('body');
 
-getPrices(shoe, (err, updatedShoe) => {
-    if (err) {
-        console.error('Error:', err.message);
-    } else {
-        console.log('Updated Shoe:', updatedShoe);
-    }
+    // Get the entire HTML content of the page
+    const pageContent = await page.content();
+
+    // Print the HTML content
+    console.log(pageContent);
+
+    await browser.close();
+}).catch(error => {
+    console.error('Error:', error);
 });
