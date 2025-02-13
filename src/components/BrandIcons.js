@@ -1,35 +1,24 @@
-
 import stockXLogo from '../images/stockx.png'
 import goatLogo from '../images/goat.png'
 import flightClubLogo from '../images/flightclub.png'
-import stadiumGoodsLogo from '../images/stadiumgoods.png'
 import React from 'react';
-
 
 const BrandIcons = () => {
     return (
-        <div class="icon-container">
-						<div class="icon-bar" >
-							<a class="logo" data-swiper-autoplay="2000">
-                                <img class="" src={stockXLogo} ></img>
-
-							</a>
-							<a class="logo" data-swiper-autoplay="2000" >
-								<img class="" src={goatLogo}></img>
-							</a>
-							<a  class="logo" data-swiper-autoplay="2000" >
-								<img class="" src={stadiumGoodsLogo} ></img>
-							</a>
-							<a  class="logo" data-swiper-autoplay="2000" >
-                                <img class="" src={flightClubLogo }></img>
-							</a>
-						</div> 
-					</div>
-                    
-
-
-
+        <div className="icon-container" style={{ display: 'flex', justifyContent: 'center' }}>
+            <div className="icon-bar" style={{ display: 'flex', justifyContent: 'space-around', width: '50%' }}>
+                <a className="logo" data-swiper-autoplay="2000">
+                    <img src={stockXLogo} alt="StockX" />
+                </a>
+                <a className="logo" data-swiper-autoplay="2000">
+                    <img src={goatLogo} alt="GOAT"  />
+                </a>
+                <a className="logo" data-swiper-autoplay="2000">
+                    <img src={flightClubLogo} alt="Flight Club" />
+                </a>
+            </div>
+        </div>
     );
-
 }
+
 export default BrandIcons;

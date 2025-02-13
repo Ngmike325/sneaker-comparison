@@ -3,97 +3,49 @@ import Table from 'react-bootstrap/Table'
 import stockXLogo from '../images/stockx.png'
 import goatLogo from '../images/goat.png'
 import flightClubLogo from '../images/flightclub.png'
-import stadiumGoodsLogo from '../images/stadiumgoods.png'
 
-const PriceTable = (props) =>{
-    // console.log("PriceTable component is rendering with props:", props);
-    const sizes = new Set([ '7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5']);
-    var shoeSizes;
+const PriceTable = (props) => {
     let sneaker = props.sneaker;
-    var resellPrices = props.sneaker.resellPrices;
+    let resellPrices = props.sneaker.lowestResellPrice;
 
-    for (var size in resellPrices?.stockX) {
-        sizes.add(size);
-        console.log("stockx resell prieces added from pricetable.js***********************Step000");
-    }
-    for (var size in resellPrices?.flightClub) {
-        sizes.add(size);
-    }
-    for (var size in resellPrices?.goat) {
-        sizes.add(size);
-    }
-    for (var size in resellPrices?.stadiumGoods) {
-        sizes.add(size);
-    }
-    shoeSizes = Array.from(sizes).sort(function (a, b) {
-        return a - b;
-    });
-    console.log("finding the smallest price:*************************")
-    console.log(sneaker)
-    var isMinPrice = (price, size) => {
-        var prices = [resellPrices?.stockX&&resellPrices?.stockX[size], resellPrices?.flightClub&&resellPrices?.flightClub[size], resellPrices?.goat&&resellPrices?.goat[size], resellPrices?.stadiumGoods&&resellPrices?.stadiumGoods[size]]
-        prices = prices.filter(item => item);
-        if (price == Math.min.apply(Math, prices)) {
-            console.log('fsdklajf')
-            return 'min-price';
-        }
-    }
-
-    return(
-<div class='table-card scroll-bar'>
-    <Table responsive>
-        {/* <thead>
-            <tr>
-                <th>US Size</th>
-                {Array.from(shoeSizes).map((size, index) => (
-                <th key={index}> {size} </th>
-                ))}
-            </tr>
-        </thead> */}
-        <tbody>
-            <tr>
-                <td onClick={()=> {window.open(sneaker.resellLinks?.stockX)}}><img src={stockXLogo}></img></td>
-                
-                <td>StockX</td>
-                
-            </tr>
-            <tr>
-                <td onClick={()=> {sneaker.resellLinks?.flightClub &&
-                    window.open(sneaker.resellLinks?.flightClub)}}><img src={flightClubLogo}></img></td>
-                {Array.from(shoeSizes).map((size, index) => (
-                // <td key={index}>{resellPrices?.flightClub && resellPrices?.flightClub[size] ? <a
-                //         class={resellPrices?.flightClub&&isMinPrice(resellPrices?.flightClub[size],
-                //         size)}href={sneaker.resellLinks?.flightClub}
-                //         target="_blank">${resellPrices.flightClub[size]}</a>: '--'}</td>
-                <td>flightClub</td>
-                ))}
-            </tr>
-            <tr>
-                <td class='goat-row' onClick={()=> {sneaker.resellLinks?.goat &&
-                    window.open(sneaker.resellLinks?.goat)}}><img src={goatLogo}></img></td>
-                {Array.from(shoeSizes).map((size, index) => (
-                // <td key={index}> {resellPrices?.goat &&resellPrices?.goat[size] ? <a
-                //         class={resellPrices?.goat&&isMinPrice(resellPrices?.goat[size],
-                //         size)}href={sneaker.resellLinks?.goat} target="_blank">${resellPrices.goat[size]} </a>: '--'}
-                // </td>
-                <td>goat</td>
-                ))}
-            </tr>
-            <tr>
-                <td onClick={()=> {sneaker.resellLinks?.stadiumGoods &&
-                    window.open(sneaker.resellLinks?.stadiumGoods)}}><img src={stadiumGoodsLogo}></img></td>
-                {Array.from(shoeSizes).map((size, index) => (
-                // <td key={index}> {resellPrices?.stadiumGoods &&resellPrices?.stadiumGoods[size] ? <a
-                //         class={resellPrices?.stadiumGoods&&isMinPrice(resellPrices?.stadiumGoods[size],
-                //         size)}href={sneaker.resellLinks?.stadiumGoods}
-                //         target="_blank">${resellPrices.stadiumGoods[size]} </a>: '--'}</td>
-                <td>stadiumGoods</td>
-                ))}
-            </tr>
-        </tbody>
-    </Table>
-</div>
-    )
+    return (
+        <div className='table-card' style={{ overflowX: 'auto' }}>
+            <Table responsive style={{ width: '100%' }}>
+                <thead>
+                    <tr>
+                        <th>Reseller</th>
+                        <th style={{textAlign: 'center'}}>Lowest Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td onClick={() => { window.open(sneaker.resellLinks?.stockX) }}>
+                            <img src={stockXLogo} alt="StockX" style={{ width: '80px' }} />
+                        </td>
+                        <td className='price-cell' style={{ fontWeight: 'bold', fontSize: '2em', textAlign: 'center' }}>
+                            {resellPrices?.stockX ? <a href={sneaker.resellLinks?.stockX} target="_blank" rel="noopener noreferrer">${resellPrices.stockX}</a> : '--'}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td onClick={() => { window.open(sneaker.resellLinks?.flightClub) }}>
+                            <img src={flightClubLogo} alt="Flight Club" style={{ width: '80px' }} />
+                        </td>
+                        <td className='price-cell' style={{ fontWeight: 'bold', fontSize: '2em', textAlign: 'center' }}>
+                            {resellPrices?.flightClub ? <a href={sneaker.resellLinks?.flightClub} target="_blank" rel="noopener noreferrer">${resellPrices.flightClub}</a> : '--'}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td onClick={() => { window.open(sneaker.resellLinks?.goat) }}>
+                            <img src={goatLogo} alt="GOAT" style={{ width: '80px' }} />
+                        </td>
+                        <td className='price-cell' style={{ fontWeight: 'bold', fontSize: '2em', textAlign: 'center' }}>
+                            {resellPrices?.goat ? <a href={sneaker.resellLinks?.goat} target="_blank" rel="noopener noreferrer">${resellPrices.goat}</a> : '--'}
+                        </td>
+                    </tr>
+                </tbody>
+            </Table>
+        </div>
+    );
 }
 
-export default PriceTable
+export default PriceTable;
