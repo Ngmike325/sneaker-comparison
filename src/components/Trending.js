@@ -30,7 +30,7 @@ const Trending = () => {
       .then((jsonResponse) => {
         // Assuming the API returns an array of sneakers
         // Update the state with the fetched data
-        setSneakers(jsonResponse.slice(0, 10)); // Display the first 10 sneakers
+        setSneakers(jsonResponse.slice(0, 12)); // Display the first 10 sneakers
         setAllSneakers(jsonResponse); // Save the full list of sneakers
         setLoading(false); // Stop the loading spinner
       })

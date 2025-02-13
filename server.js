@@ -12,6 +12,7 @@ app.get('/api/popular-sneakers', (req, res) => {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
+        console.log("run getMostPopular sucessfully***********************Step1");
         res.json(products);
     });
 });
@@ -21,11 +22,24 @@ app.get('/api/search-sneakers', (req, res) => {
     console.log(`Search Query: ${searchQuery}`);
     sneaks.getProducts(searchQuery, 12, (err, products) => {
         if (err) {
+            console.error('Error fetching products:', err);
             return res.status(500).json({ error: err.message });
         }
         res.json(products);
     });
 });
+
+// app.get('/search/:shoe', function (req, res) {
+//     const count = req.query.count || 40;
+//     sneaks.getProducts(req.params.shoe, count, function (error, products) {
+//         if (error) {
+//             console.log(error);
+//             res.send("Product Not Found");
+//         } else {
+//             res.json(products);
+//         }
+//     });
+// });
 
 app.get('/api/product-prices/:productId', (req, res) => {
     const productId = req.params.productId;
