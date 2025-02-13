@@ -19,6 +19,7 @@ const ProductCard = (props) => {
         }
     }, );
 
+
     return(
         <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
           <div class="procard">
@@ -49,7 +50,7 @@ const ProductCard = (props) => {
                   <Button onClick={()=> {window.open(props.minPriceLink, '_blank')}} class='buy-button'
                     variant="secondary" size="lg">
                     Visit site
-                  </Button></div>
+                    </Button></div>
               </div>:
               <div>Not Available</div>}
 
