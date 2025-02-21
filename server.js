@@ -4,7 +4,7 @@ const SneaksAPI = require('sneaks-api');
 const app = express();
 const sneaks = new SneaksAPI();
 
-const filterKeywords = ['fleece', 'jacket', 'backpack', 'hood', 'head','sunglasses', 'glasses', 'bag', 'Louis Vuitton']; 
+const filterKeywords = ['fleece', 'jacket', 'backpack', 'hood', 'head','sunglasses', 'glasses', 'bag', 'Louis Vuitton', 'Jersey']; 
 
 // Enable CORS
 app.use(cors());
