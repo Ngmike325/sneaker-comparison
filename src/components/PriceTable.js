@@ -8,9 +8,18 @@ const PriceTable = (props) => {
     const [selectedCurrency, setSelectedCurrency] = useState('USD');
     const [convertedRate, setConvertedRate] = useState(null);
     let rate = 1;
+    const [sign, setSign] = useState('$');
+
+    const currencySigns = {
+        'USD': '$',    // US Dollar
+        'EUR': '€',    // Euro
+        'HKD': 'HK$',   // Hong Kong Dollar
+        'GBP': '£'     // British Pound
+    };
 
     let sneaker = props.sneaker;
     let resellPrices = props.sneaker.lowestResellPrice;
+
 
     const resellers = [
         { name: 'StockX', logo: stockXLogo, price: resellPrices.stockX, link: sneaker.resellLinks?.stockX },
@@ -28,6 +37,7 @@ const PriceTable = (props) => {
                 console.log("currency exchange data:");
                 console.log(data.rates);
                 // setConvertedPrices(data.rates);
+                setSign(currencySigns[selectedCurrency]);
                 rate = data.rates["USD"];
                 console.log("rate is: ", rate);
                 setConvertedRate(rate);
@@ -49,8 +59,9 @@ const PriceTable = (props) => {
         //     return (price / rate).toFixed(2);
         // }
         // return '--';
-        console.log("new price is: ", price / convertedRate);
-        return (price / convertedRate).toFixed(2);
+        const newPrice = (price / convertedRate).toFixed(2);
+        console.log("New price is:", newPrice);
+        return sign + String(newPrice);
     };
 
     return (
@@ -76,7 +87,7 @@ const PriceTable = (props) => {
                                 <img src={reseller.logo} alt={reseller.name} style={{ width: '80px' }} />
                             </td>
                             <td className='price-cell' style={{ fontWeight: 'bold', fontSize: '2em', textAlign: 'center' }}>
-                                {reseller.price ? <a href={reseller.link} target="_blank" rel="noopener noreferrer">${convertPrice(reseller.price)}</a> : '--'}
+                                {reseller.price ? <a href={reseller.link} target="_blank" rel="noopener noreferrer">{convertPrice(reseller.price)}</a> : '--'}
                             </td>
                         </tr>
                     ))}
